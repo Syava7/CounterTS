@@ -2,6 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 import Table from './components/Table/Table';
 import Buttons from './components/Buttons/Buttons';
+import {Button} from 'react-bootstrap';
 
 
 
@@ -9,6 +10,7 @@ function App() {
   let [startValue, setStartValue] = useState<any>(0)
   let [maxValue, setMaxValue] = useState<any>(0)
   let [error, setError] = useState<boolean>(false)
+  let [disable, setDisable] = useState<boolean>(false);
 
 
   const Inc = () => setStartValue(startValue + 1)
@@ -16,10 +18,12 @@ function App() {
 
   const onMinValueChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     startValue = (+e.currentTarget.value)
+    setDisable(false)
   }
 
   const onMaxValueChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     maxValue = (+e.currentTarget.value)
+    setDisable(false)
   }
 
   useEffect( () => {
@@ -44,6 +48,7 @@ function App() {
   const setValueHandler = () => {
     setStartValue(startValue)
     setMaxValue(maxValue)
+    setDisable(true)
   }
 
   return (
@@ -74,7 +79,7 @@ function App() {
             <input type="number" onChange={onMaxValueChangeHandler}/>
           </div>
           <div>
-            <button onClick={setValueHandler}>Set</button>
+            <button disabled={disable} onClick={setValueHandler}>Set</button>
           </div>
         </div>
         {/*<InputValue />*/}
