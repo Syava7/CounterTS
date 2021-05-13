@@ -1,15 +1,40 @@
 import React from 'react';
 import s from './Table.module.css';
-import {CounterType} from '../../App';
 
-const Table = (props: CounterType) => {
-  if (props.counter === 5) {
+
+type CounterPropsType = {
+  startValue: any
+  maxValue: any
+  error?: boolean
+  setError: (error: boolean) => void
+}
+
+const Table = (props: CounterPropsType) => {
+  if (props.startValue < 0) {
     return (
-      <div className={s.table5}>{props.counter}</div>
+      <div>Value should be more than 0</div>
     )
-  } else {
+  }
+  else if  (props.maxValue < props.startValue) {
     return (
-      <div className={s.table}>{props.counter}</div>
+      <div>Value should be more than max value</div>
+    )
+  }
+  else if  (props.maxValue === props.startValue) {
+    return (
+      <div>You have max value {props.startValue}</div>
+    )
+  }
+  // else if  (props.startValue < props.maxValue) {
+  //   return (
+  //     <div>Enter value and press set</div>
+  //   )
+  // }
+  else {
+    return (
+      <div>
+        {props.startValue}
+      </div>
     )
   }
 }
